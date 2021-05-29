@@ -1,38 +1,138 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat;
+  font-size: 18px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+body {
+  width: 100%;
   min-height: 100vh;
+  background-color: #4158D0;
+  background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);  
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  margin: 20px;
+}
+
+main {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.input-group input {
+  padding: 4px;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+}
+input:focus {
+  border-bottom: 2px solid #4158D0;
   }
-  to {
-    transform: rotate(360deg);
+
+.input-group i {
+  color: #ffffff;
+  opacity: 0.5;
+  margin: 5px 5px 0 5px;
+}
+
+.btn-add {
+  padding: 5px;
+  color: #ffffff;
+  background: #4158D0;
+  border-radius: 2px;
+  border: 1px solid #4158D0;
+  outline: none;
+  margin: 8px 0;
+}
+
+.btn-add:hover, .btn-delete:hover {
+  background: #FFCC70;
+  border: 1px solid #FFCC70;
+  cursor: pointer;
+}
+
+.btn-delete {
+  padding: 8px 12px;
+  color: #ffffff;
+  background: #4158D0;
+  border: 1px solid #4158D0;
+  outline: none;
+}
+
+.list {
+  width: 55%;
+  margin-left: 20px;
+}
+
+.list-group {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  padding-left: 5px;
+}
+
+::placeholder { 
+  color: rgba(0, 0, 0,.5);
+  opacity: 1; 
+}
+
+@media screen and (max-width: 900px) {
+  .list {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 750px) {
+
+  * {
+    font-size: 14px;
+  }
+
+  main {
+    flex-direction: column;
+  }
+
+  .list {
+    margin: 20px 5px;
+    width: 100%;
+  }
+
+  .list-group label {
+    font-size: 14px;
+  }
+  
+  form {
+    align-items: start;
+  }
+
+  .input-group {
+    justify-content: flex-start;
+  }
+
+  .btn-add {
+    margin: 8px 5px;
+    width: 198px;
   }
 }
