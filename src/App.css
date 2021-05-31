@@ -13,18 +13,54 @@ body {
   background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);  
 }
 
-h1 {
-  text-align: center;
-  text-transform: uppercase;
-  margin: 20px;
+/* NAVBAR */
+nav {
+  width: 100%;
+  height: 60px;
+  background-color: #000000;
+  background-image: linear-gradient(315deg, #000000 0%, #1f1e1e 74%);
+  display: flex;
+  padding: 5px 10px;
 }
 
+.logo {
+  color: #C850C0;
+  text-decoration: none;
+  align-self: center;
+  cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: 0 30px;
+  align-self: center;
+}
+
+.nav-item {
+  margin: 0 10px;
+}
+
+.nav-item a {
+  font-size: 16px;
+  text-decoration: none!important;
+  color: #ffffff;
+}
+
+.nav-item:hover {
+  border-bottom: 2px solid #C850C0;
+  cursor: pointer;
+}
+
+/* CONTENEDOR PRINCIPAL */
 main {
   display: flex;
   justify-content: space-evenly;
-  margin: 20px;
+  margin: 40px 20px;
 }
 
+/* COMPONENTES FORM Y LIST */
 form {
   display: flex;
   flex-direction: column;
@@ -37,21 +73,36 @@ form {
   margin-bottom: 10px;
 }
 
-.input-group input {
+.input-group input{
   padding: 4px;
   outline: none;
   border: none;
   border-radius: 2px;
   background: rgba(255, 255, 255, 0.2);
 }
-input:focus {
+
+.input-group input:focus {
   border-bottom: 2px solid #4158D0;
-  }
+}
 
 .input-group i {
   color: #ffffff;
   opacity: 0.5;
   margin: 5px 5px 0 5px;
+}
+
+
+.inputs.main {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.inputs.main .inputs-form,
+.select-form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .btn-add {
@@ -64,7 +115,9 @@ input:focus {
   margin: 8px 0;
 }
 
-.btn-add:hover, .btn-delete:hover {
+.btn-add:hover, 
+.btn-delete:hover,
+.btn-form:hover {
   background: #FFCC70;
   border: 1px solid #FFCC70;
   cursor: pointer;
@@ -98,6 +151,50 @@ input:focus {
   opacity: 1; 
 }
 
+/* FORMS: COUNTRIES - CITIES - COMPANIES */
+.input-form {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.input-form input,
+  select {
+  margin-left: 10px;
+  padding: 4px;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 16px;
+}
+  
+.input-form input:focus,
+select:focus {
+  border-bottom: 2px solid #4158D0;
+}
+
+.save-localS {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 20px;
+}
+
+.btn-form{
+  padding: 5px;
+  color: #ffffff;
+  background: #6177e6;
+  border-radius: 2px;
+  border: 1px solid #6177e6;
+  outline: none;
+  padding: 8px 30px;
+}
+
+.btn-form i {
+  margin-left: 10px;
+}
+/* RESPONSIVE */
 @media screen and (max-width: 900px) {
   .list {
     width: 65%;
@@ -123,15 +220,16 @@ input:focus {
     font-size: 14px;
   }
   
-  form {
+  main form {
     align-items: start;
   }
+
 
   .input-group {
     justify-content: flex-start;
   }
 
-  .btn-add {
+  main .btn-add {
     margin: 8px 5px;
     width: 198px;
   }

@@ -8,13 +8,17 @@ export class ToDoList extends React.Component{
     
     render(){
         return (
-            <li className="list-group" key={this.props.id}>
-                <label>{this.props.offer.position}</label>
-                <label>{this.props.offer.company}</label>
-                <label>{this.props.offer.city}</label>
-                <label>{this.props.offer.country}</label>
-                <button className="btn-delete" onClick={() => this.props.onDelete(this.props.id)}><i class="fas fa-trash-alt"></i></button>
-            </li>
+            <tr className="list-group" key={this.props.id}>
+                <td>{this.props.position}</td>
+                <td>{this.props.company}</td>
+                <td>{this.props.city}</td>
+                <td>{this.props.country}</td>
+                <td>
+                    <button className="btn-delete" onClick={() => this.props.onDelete(this.props.id)}>
+                        <i className="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+            </tr>
         );
     }
 }
