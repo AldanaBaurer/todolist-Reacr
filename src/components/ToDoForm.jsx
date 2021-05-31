@@ -15,24 +15,6 @@ export class ToDoForm extends React.Component {
         }
     }
 
-    componentDidMount(){
-        if(localStorage.getItem("countries") != null){
-            this.setState({
-                countries: JSON.parse(localStorage.getItem("countries")),
-            })
-        }
-        if(localStorage.getItem("cities") != null){
-            this.setState({
-                cities: JSON.parse(localStorage.getItem("cities")),
-            })
-        }
-        if(localStorage.getItem("companies") != null){
-            this.setState({
-                companies: JSON.parse(localStorage.getItem("companies")),
-            })
-        }
-    }
- 
     handleInput = (e) => {
         e.preventDefault();
         this.setState({
@@ -53,10 +35,10 @@ export class ToDoForm extends React.Component {
 
         const newOffer = {
             id:1+Math.random(),
-            position: this.state.position,
-            company: this.state.company,
-            city: this.state.city,
-            country: this.state.country
+            position: this.state.position.description,
+            company: this.state.company.name,
+            city: this.state.city.name,
+            country: this.state.country.name
         }
 
         const offers = [...this.state.offers];
@@ -75,15 +57,8 @@ export class ToDoForm extends React.Component {
     render(){
         return (
             <>
-                <div className="inputs-form">
-                    <label> Puesto</label>
-                    <input 
-                        type="text" 
-                        name="position" 
-                        placeholder="Ingrese el puesto" 
-                        onChange={(e) => this.handleInput(e)} 
-                        value={this.state.position}/>
-                </div>
+                {this.state.apiError && <p>¡Se produjo un error al conectarse con la API Rest!</p>}
+
                 <div className="selecs-form">
                     <div className="select-form">
                         <label>Seleccione un pais</label>
@@ -91,11 +66,11 @@ export class ToDoForm extends React.Component {
                             className="select" 
                             id="selectCountries"
                             onChange={(e) => this.handleSelect(e)}
-                            value={JSON.stringify(this.state.cities.parentCountry)}
+                            value={JSON.stringify(this.state.country)}
                             name="country"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
-                            {this.state.countries.map((country) => (
+                            {this.props.countriesFromAPI.map((country) => (
                                 <option key={country.id} value={JSON.stringify(country)}>{country.name}</option>
                             ))}
                         </select>
@@ -110,7 +85,7 @@ export class ToDoForm extends React.Component {
                             name="city"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
-                            { this.state.cities.map((city) => city.parentCountry.id === this.state.country.id ? <option key={city.id} value={JSON.stringify(city)}>{city.name}</option> : JSON.stringify({}))}
+                            { this.props.citiesFromAPI.map((city) => city.countrie.id === this.state.country.id ? <option key={city.id} value={JSON.stringify(city)}>{city.name}</option> : JSON.stringify({}))}
                         </select>
                     </div>
                     <div className="select-form">
@@ -123,7 +98,20 @@ export class ToDoForm extends React.Component {
                             name="company"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
-                            { this.state.companies.map((company) => company.parentCity.parentCountry.id === this.state.country.id && company.parentCity.id === this.state.city.id ? <option key={company.id} value={JSON.stringify(company)}>{company.name}</option> : JSON.stringify({}))}
+                            { this.props.companiesFromAPI.map((company) => company.place.countrieId == this.state.country.id && company.placeId == this.state.city.id ? <option key={company.id} value={JSON.stringify(company)}>{company.name}</option> : JSON.stringify({}))}
+                        </select>
+                    </div>
+                    <div className="select-form">
+                        <label>Seleccione un puesto</label>
+                        <select 
+                            className="select" 
+                            id="selectPosition"
+                            onChange={(e) => this.handleSelect(e)}
+                            value={JSON.stringify(this.state.position)}
+                            name="position"
+                        >
+                            <option value={JSON.stringify({})}>Selecciona una opción</option>
+                            { this.props.positionsFromAPI.map((position) => position.organizationId == this.state.companies.id && position.organization.placeId == this.state.city.id ? <option key={position.id} value={JSON.stringify(position)}>{position.description}</option> : JSON.stringify({}))}
                         </select>
                     </div>
                 </div>

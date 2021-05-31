@@ -5,6 +5,7 @@ import { Main } from './views/Main'
 import { Countries } from './views/Countries'
 import { Cities } from './views/Cities'
 import { Companies } from './views/Companies'
+import { Positions } from './views/Positions'
 import { NotFound } from './views/NotFound'
 import './App.css';
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/countries" exact component={Countries} />
           <Route path="/cities" exact component={Cities} />
           <Route path="/companies" exact component={Companies} />
+          <Route path="/positions" exact component={Positions} />
           <Route component={NotFound} />
         </Switch>
       </div>     

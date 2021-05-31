@@ -1,71 +1,109 @@
 import React from 'react'
 import { ToDoForm } from '../components/ToDoForm'
 import { ToDoList } from '../components/ToDoList'
+import { getData } from '../clients/positionsClient'
+import { getDataCountries } from '../clients/countriesClient'
+import { getDataCities } from '../clients/citiesClient'
+import { getDataCompanies } from '../clients/companiesClient'
 
 export class Main extends React.Component{
 
     constructor(props){
-    super(props)
-    this.state = {
-        offers: [],
-        countries: [],
-        cities: [],
-        companies: []
+        super(props)
+        this.state = {
+            offers: [],
+            positionsFromAPI: [],
+            countriesFromAPI: [],
+            citiesFromAPI: [],
+            companiesFromAPI: [],
+            apiError: false,
+        }
+        this.deleteOffer = this.deleteOffer.bind(this)
     }
-    this.deleteOffer = this.deleteOffer.bind(this)
-}
 
-componentDidMount(){
-    if(localStorage.getItem("countries") != null){
+    getPositionsFromAPI = (datos) => {
         this.setState({
-            countries: JSON.parse(localStorage.getItem("countries")),
+            positionsFromAPI: datos
         })
     }
-    if(localStorage.getItem("cities") != null){
+
+    getCountriesFromAPI = (datos) => {
         this.setState({
-            cities: JSON.parse(localStorage.getItem("cities")),
+            countriesFromAPI: datos
         })
     }
-    if(localStorage.getItem("companies") != null){
+
+    getCitiesFromAPI = (datos) => {
         this.setState({
-            companies: JSON.parse(localStorage.getItem("companies")),
+            citiesFromAPI: datos
         })
     }
-}
 
-deleteOffer = (id) => {
-    this.setState({
-        offers: this.state.offers.filter((offer, index) => index !== id)
-    });
-}
+    getCompaniesFromAPI = (datos) => {
+        this.setState({
+            companiesFromAPI: datos
+        })
+    }
 
-render() {
-    return (
-        <>
-            <main>
-                <div className="inputs main">
-                    <ToDoForm onSubmit={this.addOffer}/>
-                </div>
-                <div className="list">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Puesto</th>
-                                <th>Empresa</th>
-                                <th>Cuidad</th>
-                                <th>Pais</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.offers.map((offer) => {
-                                return < ToDoList offers={this.state.offers} key={offer.id} offer={offer} id={offer.id} position={offer.position} country={offer.country} city={offer.city} company={offer.company} onDelete={this.deleteOffer}></ToDoList>
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-            </main>
-        </>
-    )
-}
+    deleteOffer(id) {
+        const offers = [...this.state.offers]
+
+        const deleteOffer = offers.filter(item => item.id !== id)
+
+        this.setState({offers: deleteOffer});
+    }
+    componentDidMount(){
+
+        getData(this.getPositionsFromAPI)
+        getDataCountries(this.getCountriesFromAPI)
+        getDataCities(this.getCitiesFromAPI)
+        getDataCompanies(this.getCompaniesFromAPI)
+
+    }
+
+    render() {
+        return (
+            <>
+                <main>
+                    <div className="inputs main">
+                        <ToDoForm onSubmit={this.addOffer} 
+                            countriesFromAPI={this.state.countriesFromAPI}
+                            citiesFromAPI={this.state.citiesFromAPI}
+                            companiesFromAPI={this.state.companiesFromAPI}
+                            positionsFromAPI={this.state.positionsFromAPI}
+                        />
+                    </div>
+                    <div className="list">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Puesto</th>
+                                    <th>Empresa</th>
+                                    <th>Cuidad</th>
+                                    <th>Pais</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { this.state.offers.map(offer => 
+
+                                    <tr className="list-group" key={this.props.id}>
+                                        <td>{this.props.position}</td>
+                                        <td>{this.props.company}</td>
+                                        <td>{this.props.city}</td>
+                                        <td>{this.props.country}</td>
+                                        <td>
+                                            <button className="btn-delete" onClick={() => this.props.onDelete(this.props.id)}>
+                                                <i className="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </main>
+            </>
+        )
+    }
 }

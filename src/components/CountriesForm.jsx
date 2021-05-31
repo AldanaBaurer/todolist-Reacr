@@ -1,5 +1,4 @@
 import React from 'react'
-import { isObjectEmpty } from '../utils/stringUtils'
 
 export class CountriesForm extends React.Component{
 
@@ -7,7 +6,6 @@ export class CountriesForm extends React.Component{
         super(props)
         this.state = {
             country: {
-                id: '',
                 name: ''
             }
         }
@@ -16,26 +14,27 @@ export class CountriesForm extends React.Component{
     handleCountry = (e) => {
         e.preventDefault();
         this.setState({
-            [e.target.name]: e.target.value,
+            [e.target.name]: {
+                name: e.target.value
+            }
         });
     }
     
     submitForm = (e) => {
-        e.preventDefault();
 
-            const newCountry = {
-                id: 1+Math.random(),
-                name: this.state.country
-            }
+        if((this.state.country.name).trim() === ""){
+            alert("Los datos están vacios")
+        }else{
+            e.preventDefault();
 
-            this.props.addCountry(newCountry);
+            this.props.addCountry(this.state.country.name);
 
             this.setState({
                 country: {
-                    id: "",
-                    name: ""
+                    name: ""  
                 }
             })
+        }  
     }
 
     render() {

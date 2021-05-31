@@ -6,25 +6,11 @@ export class CitiesForm extends React.Component{
         this.props = props;
         this.state ={
             city: {
-                id: "",
                 name: "",
-                parentCountry: ""
+                countrieId: ""
             },
             cities: [],
             countries: []
-        }
-    }
-
-    componentDidMount(){
-        if(localStorage.getItem("cities") != null){
-            this.setState({
-                cities: JSON.parse(localStorage.getItem("cities")),
-            })
-        }
-        if(localStorage.getItem("countries") != null){
-            this.setState({
-                countries: JSON.parse(localStorage.getItem("countries")),
-            })
         }
     }
 
@@ -32,7 +18,10 @@ export class CitiesForm extends React.Component{
         e.preventDefault();
         this.setState({
             ...this.state,
-            [e.target.name]: e.target.value,
+            [e.target.name]: {
+                name: e.target.value,
+                countrieId: ""
+            }
         });
     };
 
@@ -40,29 +29,30 @@ export class CitiesForm extends React.Component{
 		e.preventDefault();
 		this.setState({
             ...this.state,
-			[e.target.name]: JSON.parse(e.target.value),
+			[e.target.name]: {
+                name: this.state.city.name,
+                countrieId: JSON.parse(e.target.value)
+            }
 		});
 	};
 
     
     submitForm = (e) => {
-        e.preventDefault();
 
-        const newCity = {
-            id: 1+Math.random(),
-            name: this.state.city,
-            parentCountry: this.state.parentCountry
+        if((this.state.city.name).trim() === "" || (this.state.city.countrieId) === ""){
+            alert("No existen datos!")
+        }else{
+            e.preventDefault();
+
+            this.props.addCity(this.state.city.name, this.state.city.countrieId);
+
+            this.setState({
+                city: {
+                    name: "",
+                    countrieId: ""
+                }
+            })
         }
-
-        this.props.addCity(newCity);
-
-        this.setState({
-            city: {
-                id: "",
-                name: "",
-                parentCountry: ""
-            }
-        })
     };
 
     render(){
@@ -85,12 +75,12 @@ export class CitiesForm extends React.Component{
                             className="select" 
                             id="selectCountries"
                             onChange={(e) => this.handleSelect(e)}
-                            value={JSON.stringify(this.state.parentCountry)}
-                            name="parentCountry"
+                            value={JSON.stringify(this.state.city.countrieId)}
+                            name="city"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
-                            {this.state.countries.map((country) => (
-                                <option key={country.id} value={JSON.stringify(country)}>{country.name}</option>
+                            {this.props.countriesFromAPI.map((country) => (
+                                <option key={country.id} value={JSON.stringify(country.id)}>{country.name}</option>
                             ))}
                         </select>
                     </div>

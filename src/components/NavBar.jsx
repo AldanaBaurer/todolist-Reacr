@@ -16,6 +16,9 @@ export const NavBar = () => {
                 <li className= "nav-item">
                     <Link to="/companies">Empresas</Link>
                 </li>
+                <li className= "nav-item">
+                    <Link to="/positions">Puestos</Link>
+                </li>
             </ul>
         </nav>
     )

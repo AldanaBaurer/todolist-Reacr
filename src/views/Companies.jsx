@@ -1,5 +1,7 @@
 import React from 'react'
 import { CompaniesForm } from '../components/CompaniesForm'
+import { getDataCities } from '../clients/citiesClient'
+import {deleteDataCompanies, getDataCompanies, postDataCompanies } from '../clients/companiesClient'
 
 export class Companies extends React.Component {
 
@@ -7,34 +9,66 @@ export class Companies extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            companies: []
+            companies: [],
+            citiesFromAPI: [],
+            companiesFromAPI: []
         }
     }
 
-    componentDidMount(){
-        if(localStorage.getItem("companies") != null){
-            this.setState({
-                companies: JSON.parse(localStorage.getItem("companies"))
-            })
-        }
-    }
-
-    addCompany = (newCompany) => {
+    updateCitiesFromAPI = (datos) => {
         this.setState({
-            companies: [...this.state.companies, newCompany]
+            citiesFromAPI: datos
         })
     }
 
-    saveCompany = () => {
-        window.localStorage.setItem("companies", JSON.stringify(this.state.companies))
+    updateCompaniesFromAPI = (datos) => {
+        this.setState({
+            companiesFromAPI: datos
+        })
+    }
+
+    componentDidMount(){
+        getDataCities(this.updateCitiesFromAPI)
+        getDataCompanies(this.updateCompaniesFromAPI)
+    }
+
+    addCompanies = (company, placeId) => {
+        postDataCompanies(company,placeId)
+    }
+
+    deleteCompanies = (id) =>{
+        deleteDataCompanies(id);
     }
 
     render(){
         return(
             <>
             <div className="save-localS">
-                <CompaniesForm addCompany={this.addCompany} cities={this.state.cities} />
-                <button type="submit" className="btn-form" onClick={this.saveCompany}>Guardar<i className="fas fa-save"></i></button>
+                <CompaniesForm addCompanies={this.addCompanies} citiesFromAPI={this.state.citiesFromAPI} />
+                <div className="list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cuidad</th>
+                                <th>Organización</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.state.companiesFromAPI.map(company => 
+                                <tr className="list-group" key={company.id}>
+                                    <td>{company.place.name}</td>
+                                    <td>{company.name}</td>
+                                    <td>
+                                        <button className="btn-delete" onClick={() => this.deleteCompany(company.id)}>
+                                            <i className="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             </>
         )

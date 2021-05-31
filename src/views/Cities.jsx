@@ -1,40 +1,76 @@
 
 import React from 'react'
 import { CitiesForm } from '../components/CitiesForm';
+import { getDataCountries } from '../clients/countriesClient'
+import {deleteDataCities, getDataCities, postDataCities } from '../clients/citiesClient'
 
 export class Cities extends React.Component{
 
     constructor(props){
         super(props)
         this.state = {
-            cities: []
+            cities: [],
+            countriesFromAPI: [],
+            citiesFromAPI: []
         }
     }
 
-    componentDidMount(){
-        if(localStorage.getItem("cities") != null){
-            this.setState({
-                cities: JSON.parse(localStorage.getItem("cities"))
-            })
-        }
-    }
-
-    addCity = (newCity) => {
+    updateCountriesFromAPI = (datos) => {
         this.setState({
-            cities: [...this.state.cities, newCity]
+            countriesFromAPI: datos
         })
     }
 
-    saveCity = () => {
-        window.localStorage.setItem("cities", JSON.stringify(this.state.cities))
+    updateCitiesFromAPI = (datos) => {
+        this.setState({
+            citiesFromAPI: datos
+        })
+    }
+
+    componentDidMount(){
+
+        getDataCountries(this.updateCountriesFromAPI)
+        getDataCities(this.updateCitiesFromAPI)
+
+    }
+
+    addCity = (city , countrieId) => {
+        postDataCities(city, countrieId)
+    }
+
+    deleteCity = (id) =>{
+        deleteDataCities(id);
     }
 
     render(){
         return(
             <>
             <div className="save-localS">
-                <CitiesForm addCity={this.addCity} countries={this.state.countries} />
-                <button type="submit" className="btn-form" onClick={this.saveCity}>Guardar<i className="fas fa-save"></i></button>
+                <CitiesForm addCity={this.addCity} countriesFromAPI={this.state.countriesFromAPI} />
+                <div className="list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>País</th>
+                                <th>Cuidad</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.state.citiesFromAPI.map(city => 
+                                <tr className="list-group" key={city.id}>
+                                    <td>{city.countrie.name}</td>
+                                    <td>{city.name}</td>
+                                    <td>
+                                        <button className="btn-delete" onClick={() => this.deleteCity(city.id)}>
+                                            <i className="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             </>
         )

@@ -2,8 +2,9 @@ import React from 'react'
 
 export class ToDoList extends React.Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props)
+        this.props = props;
     }
     
     render(){

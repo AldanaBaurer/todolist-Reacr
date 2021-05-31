@@ -1,31 +1,16 @@
 import React from 'react'
 
 export class CompaniesForm extends React.Component{
+
     constructor(props){
         super(props)
-        this.props = props;
         this.state ={
             company: {
-                id: "",
                 name: "",
-                parentCity: ""
+                placeId: ""
             },
             companies: [],
             cities: []
-        }
-    }
-
-    componentDidMount(){
-        if(localStorage.getItem("companies") != null){
-            this.setState({
-                companies: JSON.parse(localStorage.getItem("companies")),
-            })
-        }
-
-        if(localStorage.getItem("cities") != null){
-            this.setState({
-                cities: JSON.parse(localStorage.getItem("cities")),
-            })
         }
     }
 
@@ -33,7 +18,10 @@ export class CompaniesForm extends React.Component{
         e.preventDefault();
         this.setState({
             ...this.state,
-            [e.target.name]: e.target.value,
+            [e.target.name]: {
+                name: e.target.value,
+                placeId: ""
+            }
         });
     };
 
@@ -41,29 +29,35 @@ export class CompaniesForm extends React.Component{
 		e.preventDefault();
 		this.setState({
             ...this.state,
-			[e.target.name]: JSON.parse(e.target.value),
+			[e.target.name]: {
+                name: this.state.company.name,
+                placeId: JSON.parse(e.target.value)
+            }
 		});
 	};
 
     
     submitForm = (e) => {
-        e.preventDefault();
 
-        const newCompany = {
-            id: 1+Math.random(),
-            name: this.state.company,
-            parentCity: this.state.parentCity
-        }
+        if((this.state.company.name).trim() === "" || (this.state.company.placeId) === ""){
+            alert("No existen datos!")
+        }else{
+            e.preventDefault();
 
-        this.props.addCompany(newCompany);
-
-        this.setState({
-            company: {
-                id: "",
-                name: "",
-                parentCity: ""
+            const newCompany = {
+                name: this.state.company.name,
+                placeId: this.state.company.placeId
             }
-        })
+
+            this.props.addCompanies(newCompany);
+
+            this.setState({
+                company: {
+                    name: "",
+                    placeId: ""
+                }
+            })
+        }
     };
 
     render(){
@@ -86,12 +80,12 @@ export class CompaniesForm extends React.Component{
                             className="select" 
                             id="selectCities"
                             onChange={(e) => this.handleSelect(e)}
-                            value={JSON.stringify(this.state.parentCity)}
-                            name="parentCity"
+                            value={JSON.stringify(this.state.company.placeId)}
+                            name="company"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
-                            {this.state.cities.map((city) => (
-                                <option key={city.id} value={JSON.stringify(city)}>{city.name}</option>
+                            {this.props.citiesFromAPI.map((city) => (
+                                <option key={city.id} value={JSON.stringify(city.id)}>{city.name}</option>
                             ))}
                         </select>
                     </div>

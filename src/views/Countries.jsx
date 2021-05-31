@@ -1,38 +1,63 @@
 import React from 'react'
 import { CountriesForm } from '../components/CountriesForm'
+import {getDataCountries,postDataCountries, deleteDataCountries} from '../clients/countriesClient'
 
 export class Countries extends React.Component {
 
     constructor(props){
         super(props)
         this.state = {
-            countries: []
+            countries: [],
+            countriesFromAPI: []
         }
     }
 
-    componentDidMount(){
-        if(localStorage.getItem("countries") != null){
-            this.setState({
-                countries: JSON.parse(localStorage.getItem("countries"))
-            })
-        }
-    }
-
-    addCountry = (newCountry) => {
+    updateCountriesFromAPI = (datos) => {
         this.setState({
-            countries: [...this.state.countries, newCountry]
+            countriesFromAPI: datos
         })
     }
 
-    saveCountry = () => {
-        window.localStorage.setItem("countries", JSON.stringify(this.state.countries))
+    componentDidMount(){
+        getDataCountries(this.updateCountriesFromAPI)
+    }
+    
+    addCountry = (newCountry) => {
+        postDataCountries(newCountry)
+    }
+
+    deleteCountry = (id) =>{
+        if(deleteDataCountries(id)){
+            alert('El país ha eliminado con éxito')
+        }
     }
 
     render(){
         return (
             <div className="save-localS">
                 <CountriesForm addCountry={this.addCountry} />
-                <button type="submit" className="btn-form" onClick={this.saveCountry}>Guardar<i className="fas fa-save"></i></button>
+                <div className="list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.state.countriesFromAPI.map(country => 
+                                <tr className="list-group" key={country.id}>
+                                    <td>{country.name}</td>
+                                    <td> 
+                                        <button className="btn-delete" onClick={() => this.deleteCountry(country.id)}>
+                                            <i className="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
