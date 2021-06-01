@@ -1,4 +1,4 @@
-export const isObjectEmpty = (obj) => {
+export const checkObject = (obj) => {
     for (var prop in obj){
         if (obj.hasOwnProperty(prop)) return false;
     }

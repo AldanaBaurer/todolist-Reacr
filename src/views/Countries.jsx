@@ -47,8 +47,8 @@ export class Countries extends React.Component {
                         <tbody>
                             { this.state.countriesFromAPI.map(country => 
                                 <tr className="list-group" key={country.id}>
-                                    <td>{country.name}</td>
-                                    <td> 
+                                    <td className="table-item">{country.name}</td>
+                                    <td className="item-delete"> 
                                         <button className="btn-delete" onClick={() => this.deleteCountry(country.id)}>
                                             <i className="fas fa-trash-alt"></i>
                                         </button>

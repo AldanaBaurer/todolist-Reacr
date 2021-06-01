@@ -33,7 +33,7 @@ export class Companies extends React.Component {
     }
 
     addCompanies = (company, placeId) => {
-        postDataCompanies(company,placeId)
+        postDataCompanies(company, placeId)
     }
 
     deleteCompanies = (id) =>{
@@ -57,10 +57,10 @@ export class Companies extends React.Component {
                         <tbody>
                             { this.state.companiesFromAPI.map(company => 
                                 <tr className="list-group" key={company.id}>
-                                    <td>{company.place.name}</td>
-                                    <td>{company.name}</td>
-                                    <td>
-                                        <button className="btn-delete" onClick={() => this.deleteCompany(company.id)}>
+                                    <td className="table-item">{company.place.name}</td>
+                                    <td className="table-item">{company.name}</td>
+                                    <td className="item-delete">
+                                        <button className="btn-delete" onClick={() => this.deleteCompanies(company.id)}>
                                             <i className="fas fa-trash-alt"></i>
                                         </button>
                                     </td>

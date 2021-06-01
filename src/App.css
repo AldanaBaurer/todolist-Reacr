@@ -131,19 +131,26 @@ form {
   outline: none;
 }
 
+.item-delete {
+  width: 15%;
+}
+
+table {
+  width: 100%;
+  margin-top: 25px;
+}
+
+tbody {
+  text-align: center;
+}
+
 .list {
   width: 55%;
   margin-left: 20px;
 }
 
-.list-group {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.table-item {
   background-color: #ffffff;
-  margin-bottom: 10px;
-  padding-left: 5px;
 }
 
 ::placeholder { 

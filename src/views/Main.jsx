@@ -88,11 +88,11 @@ export class Main extends React.Component{
                                 { this.state.offers.map(offer => 
 
                                     <tr className="list-group" key={this.props.id}>
-                                        <td>{this.props.position}</td>
-                                        <td>{this.props.company}</td>
-                                        <td>{this.props.city}</td>
-                                        <td>{this.props.country}</td>
-                                        <td>
+                                        <td className="table-item">{this.props.position}</td>
+                                        <td className="table-item">{this.props.company}</td>
+                                        <td className="table-item">{this.props.city}</td>
+                                        <td className="table-item">{this.props.country}</td>
+                                        <td className="item-delete">
                                             <button className="btn-delete" onClick={() => this.props.onDelete(this.props.id)}>
                                                 <i className="fas fa-trash-alt"></i>
                                             </button>

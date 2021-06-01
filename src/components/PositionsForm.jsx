@@ -50,7 +50,7 @@ export class PositionsForm extends React.Component {
 
     submitForm = (e) => {
         if((this.state.position.position).trim() === "" && (this.state.position.description).trim() === "" && (this.state.position.organizationId).trim() === ""){
-            alert("Los datos están vacios")
+            alert("No se han ingresado datos")
         }else{
             e.preventDefault();
             this.props.addPosition(this.state.position.position, this.state.position.description, this.state.position.organizationId)
@@ -95,7 +95,7 @@ export class PositionsForm extends React.Component {
                             id="selectPositions"
                             onChange={(e) => this.handleSelect(e)}
                             value={JSON.stringify(this.state.position.organizationId)}
-                            name="city"
+                            name="position"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
                             { this.props.companiesFromAPI.map((company) => (

@@ -111,7 +111,7 @@ export class ToDoForm extends React.Component {
                             name="position"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
-                            { this.props.positionsFromAPI.map((position) => position.organizationId == this.state.companies.id && position.organization.placeId == this.state.city.id ? <option key={position.id} value={JSON.stringify(position)}>{position.description}</option> : JSON.stringify({}))}
+                            { this.props.positionsFromAPI.map((position) => position.organizationId == this.state.company.id && position.organization.placeId == this.state.city.id ? <option key={position.id} value={JSON.stringify(position.id)}>{position.description}</option> : JSON.stringify({}))}
                         </select>
                     </div>
                 </div>

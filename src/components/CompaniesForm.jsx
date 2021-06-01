@@ -40,16 +40,11 @@ export class CompaniesForm extends React.Component{
     submitForm = (e) => {
 
         if((this.state.company.name).trim() === "" || (this.state.company.placeId) === ""){
-            alert("No existen datos!")
+            alert("No se han ingresado datos")
         }else{
             e.preventDefault();
 
-            const newCompany = {
-                name: this.state.company.name,
-                placeId: this.state.company.placeId
-            }
-
-            this.props.addCompanies(newCompany);
+            this.props.addCompanies(this.state.company.name, this.state.company.placeId);
 
             this.setState({
                 company: {
@@ -84,7 +79,7 @@ export class CompaniesForm extends React.Component{
                             name="company"
                         >
                             <option value={JSON.stringify({})}>Selecciona una opción</option>
-                            {this.props.citiesFromAPI.map((city) => (
+                            { this.props.citiesFromAPI.map((city) => (
                                 <option key={city.id} value={JSON.stringify(city.id)}>{city.name}</option>
                             ))}
                         </select>

@@ -40,7 +40,7 @@ export class CitiesForm extends React.Component{
     submitForm = (e) => {
 
         if((this.state.city.name).trim() === "" || (this.state.city.countrieId) === ""){
-            alert("No existen datos!")
+            alert("No se han ingresado datos")
         }else{
             e.preventDefault();
 

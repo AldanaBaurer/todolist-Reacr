@@ -44,7 +44,7 @@ export class Positions extends React.Component {
         return(
             <>
             <div className="save-localS">
-                <PositionsForm addPosition={this.addPosition} positionsFromAPI={this.state.positionsFromAPI} />
+                <PositionsForm addPosition={this.addPosition} companiesFromAPI={this.state.companiesFromAPI} />
                 <div className="list">
                     <table>
                         <thead>
@@ -58,10 +58,10 @@ export class Positions extends React.Component {
                         <tbody>
                             { this.state.positionsFromAPI.map(position => 
                                 <tr className="list-group" key={position.id}>
-                                    <td>{position.position}</td>
-                                    <td>{position.description}</td>
-                                    <td>{position.organization.name}</td>
-                                    <td>
+                                    <td className="table-item">{position.position}</td>
+                                    <td className="table-item">{position.description}</td>
+                                    <td className="table-item">{position.organization.name}</td>
+                                    <td className="item-delete">
                                         <button className="btn-delete" onClick={() => this.deletePosition(position.id)}>
                                             <i className="fas fa-trash-alt"></i>
                                         </button>

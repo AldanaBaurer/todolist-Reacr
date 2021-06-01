@@ -23,7 +23,7 @@ export class CountriesForm extends React.Component{
     submitForm = (e) => {
 
         if((this.state.country.name).trim() === ""){
-            alert("Los datos están vacios")
+            alert("No se han ingresado datos")
         }else{
             e.preventDefault();
 
