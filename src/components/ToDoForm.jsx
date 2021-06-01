@@ -46,7 +46,7 @@ export class ToDoForm extends React.Component {
         } else {
             const newOffer = {
             id:1+Math.random(),
-            position: this.state.position.description,
+            position: this.state.position.position,
             company: this.state.company.name,
             city: this.state.city.name,
             country: this.state.country.name
@@ -136,7 +136,7 @@ export class ToDoForm extends React.Component {
                                 name="position"
                             >
                                 <option value={JSON.stringify({})}>Selecciona una opción</option>
-                                { this.props.positionsFromAPI.map((position) => position.organizationId == this.state.company.id && position.organization.placeId == this.state.city.id ? <option key={position.id} value={JSON.stringify(position)}>{position.description}</option> : JSON.stringify({}))}
+                                { this.props.positionsFromAPI.map((position) => position.organizationId == this.state.company.id && position.organization.placeId == this.state.city.id ? <option key={position.id} value={JSON.stringify(position)}>{position.position}</option> : JSON.stringify({}))}
                             </select>
                         </div>
                     </div>
