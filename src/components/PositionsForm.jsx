@@ -63,6 +63,7 @@ export class PositionsForm extends React.Component {
                 }
             })
         }
+        alert("Puesto creado")
     }
 
     render() {

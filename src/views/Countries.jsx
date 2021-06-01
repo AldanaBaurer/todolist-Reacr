@@ -28,7 +28,7 @@ export class Countries extends React.Component {
 
     deleteCountry = (id) =>{
         if(deleteDataCountries(id)){
-            alert('El país ha eliminado con éxito')
+            alert('El país se ha eliminado con éxito')
         }
     }
 

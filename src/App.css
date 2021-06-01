@@ -105,6 +105,10 @@ form {
   margin-bottom: 10px;
 }
 
+.select-form select {
+  width: 50%;
+}
+
 .btn-add {
   padding: 5px;
   color: #ffffff;

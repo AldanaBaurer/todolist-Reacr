@@ -37,7 +37,9 @@ export class Companies extends React.Component {
     }
 
     deleteCompanies = (id) =>{
-        deleteDataCompanies(id);
+        if(deleteDataCompanies(id)){
+            alert('La empresa se ha eliminado con éxito')
+        }
     }
 
     render(){

@@ -52,6 +52,7 @@ export class CitiesForm extends React.Component{
                     countrieId: ""
                 }
             })
+            alert("Cuidad creada")
         }
     };
 

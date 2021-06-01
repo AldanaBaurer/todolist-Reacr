@@ -52,6 +52,7 @@ export class CompaniesForm extends React.Component{
                     placeId: ""
                 }
             })
+            alert("Empresa creada")
         }
     };
 

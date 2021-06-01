@@ -39,7 +39,9 @@ export class Cities extends React.Component{
     }
 
     deleteCity = (id) =>{
-        deleteDataCities(id);
+        if(deleteDataCities(id)){
+            alert('La cuidad se ha eliminado con éxito')
+        }
     }
 
     render(){

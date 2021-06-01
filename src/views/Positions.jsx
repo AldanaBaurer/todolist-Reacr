@@ -37,7 +37,9 @@ export class Positions extends React.Component {
     }
 
     deletePosition = (id) =>{
-        deleteDataPositions(id);
+        if(deleteDataPositions(id)){
+            alert('El puesto se ha eliminado con éxito')
+        }
     }
 
     render(){

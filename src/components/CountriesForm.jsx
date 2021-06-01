@@ -34,6 +34,9 @@ export class CountriesForm extends React.Component{
                     name: ""  
                 }
             })
+
+            alert("País creado")
+
         }  
     }
 

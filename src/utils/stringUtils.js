@@ -5,7 +5,3 @@ export const checkObject = (obj) => {
     
     return true
 }
-
-export const checkValue = (value) => (
-    value.trim() !== "" && value.trim() !== undefined && value.trim() !== null
-)
